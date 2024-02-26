@@ -4,18 +4,23 @@ import { vote } from "../reducers/anecdoteReducer";
 const Anecdote = ({ anecdote, vote }) => {
   return (
     <div>
-      {anecdote.content}
-      <p>
-        {" "}
-        {anecdote.votes} <button onClick={vote}>Vote</button>
-      </p>
+      <strong>{anecdote.content}</strong>
+      <div>
+        {"has "}
+        {anecdote.votes} {anecdote.vote === 1 ? "vote" : "votes"}{" "}
+        <button onClick={vote}>Vote</button>
+      </div>
     </div>
   );
 };
 
 const AnecdotesList = () => {
   const dispatch = useDispatch();
-  const anecdotes = useSelector((state) => state);
+
+  //   sort desc - most voted first
+  const anecdotes = useSelector((state) =>
+    state.sort((a, b) => b.votes - a.votes)
+  );
 
   return (
     <div>
