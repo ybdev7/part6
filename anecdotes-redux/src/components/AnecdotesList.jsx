@@ -17,9 +17,12 @@ const Anecdote = ({ anecdote, vote }) => {
 const AnecdotesList = () => {
   const dispatch = useDispatch();
 
+  //filter
   //   sort desc - most voted first
   const anecdotes = useSelector((state) =>
-    state.sort((a, b) => b.votes - a.votes)
+    state.anecdotes
+      .filter((a) => a.content.includes(state.filter))
+      .sort((a, b) => b.votes - a.votes)
   );
 
   return (
