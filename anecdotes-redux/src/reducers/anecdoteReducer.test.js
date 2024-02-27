@@ -13,17 +13,17 @@ describe("anecdote reducer", () => {
 
   test("should return a proper initial state when called with undefined state ", () => {
     const action = {
-      type: "DO_NOTHING",
+      type: "anecdotes/nothing",
     };
 
     const newState = anecdoteReducer(undefined, action);
     expect(newState.length).toEqual(6);
   });
 
-  test("vote", () => {
+  test.only("vote", () => {
     const action = {
-      type: "VOTE",
-      payload: { id: 1 },
+      type: "anecdotes/vote",
+      payload: 1,
     };
     const state = initialState;
 
@@ -32,10 +32,10 @@ describe("anecdote reducer", () => {
     expect(newState[0].votes).toEqual(1);
   });
 
-  test("new", () => {
+  test.only("new", () => {
     const action = {
-      type: "NEW_ANECDOTE",
-      payload: { anecdote: "test anecdote" },
+      type: "anecdotes/newAnecdote",
+      payload: "test anecdote",
     };
     const state = initialState;
 

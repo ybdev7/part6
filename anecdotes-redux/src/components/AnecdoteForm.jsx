@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { newAnecdote } from "../reducers/anecdoteReducer";
+import { showNotification } from "../utils";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -9,6 +10,8 @@ const AnecdoteForm = () => {
     const anecdote = event.target.anecdote.value;
     event.target.anecdote.value = "";
     dispatch(newAnecdote(anecdote));
+
+    showNotification(dispatch, `Added Anecdote ${anecdote}`);
   };
 
   return (
