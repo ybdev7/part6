@@ -3,9 +3,16 @@ import Notification from "./components/Notification";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { getAnecdotes, updateAnecdote } from "./requests";
+import {
+  useNotification,
+  useNotificationDispatch,
+} from "./components/NotificationContext";
 
 const App = () => {
   const queryClient = useQueryClient();
+  // const notificationDispatch = useNotificationDispatch();
+  const notify = useNotification();
+
   const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
     onSuccess: () => {
@@ -16,6 +23,12 @@ const App = () => {
   const handleVote = (anecdote) => {
     console.log("voting...");
     updateAnecdoteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
+    // notificationDispatch({
+    //   type: "SET",
+    //   payload: `You voted for anecdote ${anecdote.content}`,
+    // });
+
+    notify(`You voted for anecdote ${anecdote.content}`, 5);
   };
 
   // const anecdotes = [
