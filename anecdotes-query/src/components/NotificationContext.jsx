@@ -5,7 +5,12 @@ const notificationReducer = (state, action) => {
     case "SET":
       return action.payload;
     case "CLEAR":
-      return "";
+      //only clear it's own message
+      if (state === action.payload) {
+        return "";
+      } else {
+        return state;
+      }
     default:
       return state;
   }
@@ -25,10 +30,10 @@ export const useNotificationDispatch = () => {
 
 export const useNotification = () => {
   const dispatch = useNotificationDispatch();
-  return (message, seconds) => {
+  return (message, seconds = 5) => {
     dispatch({ type: "SET", payload: message });
     setTimeout(() => {
-      dispatch({ type: "CLEAR" });
+      dispatch({ type: "CLEAR", payload: message });
     }, seconds * 1000);
   };
 };
